@@ -98,14 +98,14 @@ def main():
     for slice in data_slices:
         temp_tree = build_tree_from_slice(ans_data.iloc[slice[0]:slice[1]], ques_dict)
         temp_tree.show_tree(temp_tree.root, '|____')
-        temp_tree.traverse_tree();
+        # temp_tree.traverse_tree();
         forest.append(temp_tree)
-        input("Press enter to continue...")
+        # input("Press enter to continue...")
         pass
     # visualise_tree_from_slice(ans_data.iloc[slice[0]:slice[1]])
-    # for tree in forest:
-    #     tree.search_sent('Feel - I feel it (i.e. hesitation, shimmy, vibration, or a pull)--Drifts- Gradual movements to one side.')
-    #     pass
+    for tree in forest:
+        tree.search_sent('Feel - I feel it (i.e. hesitation, shimmy, vibration, or a pull)--')
+        pass
     pass
 
 

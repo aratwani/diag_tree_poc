@@ -6,6 +6,35 @@ class tree_node:
         self.answers = {}
         self.isleaf = isleaf
         pass
+
+    def ask_node_question(self):
+        print(self.question)
+        if len(self.answers.keys()) > 0:
+            i = 0
+            temp_dict = {}
+            for key in self.answers.keys():
+                print(" " + str(i) + " .  " + self.answers[key].text)
+                temp_dict[i] = self.answers[key]
+                i += 1
+            pass
+            if len(self.answers.keys()) > 0:
+                if not temp_dict[0].isleaf:
+                    while(1):
+                        try:
+                            selection = int(input("\nselect above option:"))
+                            return temp_dict[selection]
+                        except:
+                            print("please select an integer")
+            else:
+                return None
+
+        pass
+
+    def traverse_tree(self):
+        curr = self
+        while curr and not curr.isleaf:
+            curr = curr.ask_node_question()
+        pass
     pass
 
 
@@ -38,28 +67,18 @@ class ym_diag_tree:
     def traverse_tree(self):
         curr = self.root
         while curr and not curr.isleaf:
-            selection = 0
-            print(curr.question)
-            temp_dict = {}
-            i = 0
-            for ans in curr.answers.keys():
-                print("   " + str(i) + "." + curr.answers[ans].text)
-                temp_dict[i] = curr.answers[ans].text
-                i += 1
-            if len(curr.answers.keys()) > 0:
-                if not curr.answers[temp_dict[0]].isleaf:
-                    selection = int(input("\nselect above option:"))
-                curr = curr.answers[temp_dict[selection]]
-            else:
-                curr = None
+            curr = curr.ask_node_question()
         pass
 
     def search_sent(self, sent=""):
         tokens = sent.split('--')
         if tokens[0] == self.root.text:
             curr = self.root
-            for idx in range(1,len(tokens)):
-
+            for idx in range(1, len(tokens)):
+                if tokens[idx] in curr.answers:
+                    curr = curr.answers[tokens[idx]]
+                # traverse tree from here
+                curr.traverse_tree()
                 pass
 
         pass
