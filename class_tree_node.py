@@ -3,7 +3,7 @@ class tree_node:
         self.text = text
         self.id = id
         self.question = question
-        self.answers = []
+        self.answers = {}
         self.isleaf = isleaf
         pass
     pass
@@ -22,7 +22,7 @@ class ym_diag_tree:
         if not self.root:
             self.root = new_node
         else:
-            self.node_map[parent_id].answers.append(new_node)
+            self.node_map[parent_id].answers[new_node.text] = new_node
         pass
 
     def show_tree(self, root, padding_text):
@@ -31,8 +31,8 @@ class ym_diag_tree:
         else:
             print(padding_text + str(root.text))
             padding_text = "    " + padding_text
-            for child in root.answers:
-                self.show_tree(child, padding_text)
+            for child in root.answers.keys():
+                self.show_tree(root.answers[child], padding_text)
         pass
 
     def traverse_tree(self):
@@ -40,12 +40,16 @@ class ym_diag_tree:
         while curr and not curr.isleaf:
             selection = 0
             print(curr.question)
-            for index, ans in enumerate(curr.answers):
-                print("   " + str(index) + ". " + ans.text)
-            if len(curr.answers) > 0:
-                if not curr.answers[0].isleaf:
+            temp_dict = {}
+            i = 0
+            for ans in curr.answers.keys():
+                print("   " + str(i) + "." + curr.answers[ans].text)
+                temp_dict[i] = curr.answers[ans].text
+                i += 1
+            if len(curr.answers.keys()) > 0:
+                if not curr.answers[temp_dict[0]].isleaf:
                     selection = int(input("\nselect above option:"))
-                curr = curr.answers[selection]
+                curr = curr.answers[temp_dict[selection]]
             else:
                 curr = None
         pass
@@ -55,6 +59,7 @@ class ym_diag_tree:
         if tokens[0] == self.root.text:
             curr = self.root
             for idx in range(1,len(tokens)):
+
                 pass
 
         pass
