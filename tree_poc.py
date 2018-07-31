@@ -104,7 +104,7 @@ def main():
         pass
     # visualise_tree_from_slice(ans_data.iloc[slice[0]:slice[1]])
     for tree in forest:
-        tree.search_sent('Feel - I feel it (i.e. hesitation, shimmy, vibration, or a pull)--')
+        tree.search_sent('Feel--')
         pass
     pass
 
